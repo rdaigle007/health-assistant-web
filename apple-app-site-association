@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TFPXQQJ2LV.com.rdaigle007.healthassistant.dev",
+        "paths": [ "/health-assistant/*", "/callback" ]
+      }
+    ]
+  }
+}
