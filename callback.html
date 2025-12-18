@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Connecting to Health Assistant…</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #007AFF;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Opening Health Assistant…</h2>
+    <p>If the app doesn't open automatically, tap below.</p>
+
+    <a id="launch-btn" class="btn">Open App</a>
+
+    <script>
+        const query = window.location.search;
+
+        // Construct custom scheme URL
+        const base = "healthassistant://mychart-callback";
+        const appUrl = base + query;
+
+        // Set link
+        document.getElementById("launch-btn").href = appUrl;
+
+        // Delay helps Safari on iOS behave more predictably
+        setTimeout(() => {
+            // OPTIMIZATION: Use replace() so this redirect page does not remain in browser history
+            // This prevents the "Back Button Trap" where hitting back immediately redirects you forward again.
+            window.location.replace(appUrl);
+        }, 80);
+    </script>
+</body>
+
+</html>
