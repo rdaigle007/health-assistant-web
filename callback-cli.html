@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MyChart CLI Callback</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            line-height: 1.5;
+        }
+
+        code,
+        pre {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            background: #f4f4f5;
+            border-radius: 6px;
+        }
+
+        code {
+            padding: 2px 6px;
+        }
+
+        pre {
+            padding: 16px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .ok {
+            color: #065f46;
+        }
+
+        .error {
+            color: #991b1b;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>MyChart CLI Callback</h1>
+    <p id="status"></p>
+    <p>Copy the full URL from your browser address bar and pass it to the CLI as
+        <code>--callback-url</code>.
+    </p>
+    <pre id="details"></pre>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const hasError = params.has('error');
+        const statusEl = document.getElementById('status');
+        const detailsEl = document.getElementById('details');
+
+        if (hasError) {
+            statusEl.className = 'error';
+            statusEl.textContent = 'The OAuth provider returned an error. Copy the full URL anyway so the CLI can show the exact failure.';
+        } else if (params.has('code')) {
+            statusEl.className = 'ok';
+            statusEl.textContent = 'Authorization code received. Copy the full URL from the address bar and return to the CLI.';
+        } else {
+            statusEl.textContent = 'No authorization code was found in the query string.';
+        }
+
+        detailsEl.textContent = window.location.href;
+    </script>
+</body>
+
+</html>
